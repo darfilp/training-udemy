@@ -12,6 +12,10 @@ body {
   margin: auto;
 }
 
+img {
+  max-width: 100%;
+}
+
 .navbar {
   background: #ffffff;
 }
@@ -35,6 +39,10 @@ body {
   margin-left: 108px;
 }
 
+.navbar-top__menu-button {
+  display: none;
+}
+
 .navbar-bottom {
   background-color: #0A223D;
 }
@@ -56,6 +64,7 @@ body {
   font-size: 14px;
   line-height: 18px;
 }
+
 
 .logo {
   width: 177px;
@@ -128,6 +137,9 @@ color: #333333;
   .container {
     max-width: 700px;
   }
+  .logo {
+    width: 132px;
+  }
   .navbar-top {
     padding-bottom: 30px;
   }
@@ -153,6 +165,33 @@ color: #333333;
     font-size: 12px;
     line-height: 15px;
   }
+  .navbar__search,
+  .navbar-menu,
+  .navbar__user {
+    display: none;
+  }
+  .menu-button {
+    display: flex;
+    width: 16px;
+    height: 11px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+  .menu-button__line {
+    width: 16px;
+    height: 1px;
+    background-color: #333333;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo {
+    width: 99px;
+    }
 }
 
 
