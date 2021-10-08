@@ -1,4 +1,7 @@
-/* Задания на урок:
+'use strict';
+
+document.addEventListener('DOMContentLoaded', () => {
+    /* Задания на урок:
 
 1) Удалить все рекламные блоки со страницы (правая часть сайта)
 
@@ -12,8 +15,6 @@
 
 5) Добавить нумерацию выведенных фильмов */
 
-'use strict';
-
 const movieDB = {
     movies: [
         "Логан",
@@ -25,40 +26,74 @@ const movieDB = {
 };
 
 
-const deleteAdd = document.querySelectorAll('.promo__adv'),
+const adv = document.querySelectorAll('.promo__adv img'),
 backgroundPoster = document.querySelector('.promo__bg'),
 genreFilm = backgroundPoster.querySelector('.promo__genre'),
-movieList = document.querySelector('.promo__interactive-list');
+movieList = document.querySelector('.promo__interactive-list'),
+addForm = document.querySelector('form.add'),
+addInput = addForm.querySelector('.adding_input'),
+checkbox = addForm.querySelector('[type="checkbox"]');
+
+addForm.addEventListener('submit', (event) => {
+    event.preventDefault(); /*чтобы страничка не перезагружалась при отправке формы*/
+
+    let newFilm = addInput.value; /*Для получения доступа к значению input*/
+    const favorite = checkbox.checked;
+
+    if (newFilm) {
+        if (newFilm.length > 21) {
+            newFilm = `${newFilm.substring(0, 22)}...`;
+        }
+    movieDB.movies.push(newFilm);
+    sortArr(movieDB.movies);
+
+    createMovieList(movieDB.movies, movieList);
+    } 
+    event.target.reset(); /*очистка формы*/
+})
 
 
 /*1 задание*/
-deleteAdd.forEach(function(item) {
+const deleteAdv = function (arr) {
+    arr.forEach(function(item) {
     item.remove();
 });
+};
 
 
-/*2 задание*/
-genreFilm.textContent = 'Драма';
+const makeChange = () => {
+    /*2 задание*/
+    genreFilm.textContent = 'Драма';
+    /*3 задание*/
+    backgroundPoster.style.backgroundImage = "url('img/bg.jpg')";
+};
 
 
-/*3 задание*/
-backgroundPoster.style.backgroundImage = "url('img/bg.jpg')";
+const sortArr = (arr) => {
+    arr.sort();
+};
 
 
 /*4 и 5 задание*/
-movieList.innerHTML = "";
-movieDB.movies.sort();
-movieDB.movies.forEach((film, i) => {
-    movieList.innerHTML += `
+function createMovieList(films, parent) {
+    parent.innerHTML = "";
+    
+    films.forEach((film, i) => {
+    parent.innerHTML += `
                         <li class="promo__interactive-item">${i + 1} ${film}
                             <div class="delete"></div>
                         </li>
     `;
-})
+});
+}
 
+deleteAdv(adv);
+makeChange();
+sortArr(movieDB.movies);
+createMovieList(movieDB.movies, movieList);
 
+});
 
-/*5 задание*/
 
 
 
